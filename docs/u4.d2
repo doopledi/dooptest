@@ -1,0 +1,54 @@
+direction: right
+
+actors: {
+  label: "ACTORS"
+  person_actor: "PERSON (actor)"
+  hubowner_actor: "HUBOWNER (actor/org)"
+  person_actor -> hubowner_actor: "may be same"
+}
+
+personal: {
+  label: "PERSONAL"
+  person: "PERSON (role)"
+  text: "TEXT (free-form)"
+  bundles: "BUNDLES (sets of items)"
+  items: "ITEMS (with metadata/hooks)"
+  posse: "POSSE (container)"
+  publishing: "PUBLISHING"
+  rules: "RULES (audience,endpoints)"
+
+  person -> bundles: "manages"
+  bundles -> text: "contains some"
+  bundles -> items: "create"
+  items -> posse: "ingest"
+  publishing -> rules: "sets"
+  posse -> rules: "applies"
+  publishing -> posse: "uses"
+}
+
+actors.person_actor -> personal.person: "is"
+
+communal: {
+  label: "HUB"
+  host: "Hosting"
+  services: "Services (moderation, discovery, relay)"
+  host -> services: "same infra?"
+}
+
+actors.hubowner_actor -> communal.host: "controls"
+actors.hubowner_actor -> communal.services: "controls"
+
+federation: {
+  label: "FEDERATION"
+  fediverse: "Fediverse"
+  other: "Other endpoints"
+  discover: "Discovery"
+}
+
+personal.posse -> communal.host: "host opt."
+communal.services -> federation.fediverse: "publish"
+communal.services -> federation.other: "syndicate"
+communal.services -> federation.discover: "expose"
+personal.posse -> federation.fediverse: "direct"
+personal.posse -> federation.other: "direct"
+communal.services -> personal.posse: "compliance"
