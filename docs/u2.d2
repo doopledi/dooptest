@@ -1,0 +1,50 @@
+direction: down
+
+personal: {
+  label: "PERSONAL"
+  person: "PERSON"
+  user: "USER (identity, keys)"
+  text: "TEXT (free-form)"
+  bundles: "BUNDLES (curated subset)"
+  items: "ITEMS (with metadata/hooks)"
+
+  person -> user: "manages"
+  person -> text: "owns"
+  person -> bundles: "curates"
+  text -> bundles: "selects"
+  bundles -> items: "create"
+}
+
+posse: {
+  label: "POSSE"
+  container: "POSSE Container"
+  rules: "Rules (audience, endpoints)"
+  container -> rules: "uses"
+}
+
+personal.items -> posse.container: "ingest"
+
+communal: {
+  label: "HUB"
+  host: "Hosting"
+  services: "Services (moderation, discovery, relay)"
+  sla_host: "SLA: uptime, integrity"
+  sla_services: "SLA: ethics, rates"
+  host -> services: "same infra?"
+}
+
+posse.container -> communal.host: "host opt."
+
+federation: {
+  label: "FEDERATION"
+  fedi: "Fediverse"
+  other: "Other endpoints"
+  discover: "Discovery / Aggregators"
+}
+
+communal.services -> federation.fedi: "publish"
+communal.services -> federation.other: "syndicate"
+communal.services -> federation.discover: "expose"
+posse.container -> federation.fedi: "direct"
+posse.container -> federation.other: "direct"
+communal.services -> posse.container: "compliance"
