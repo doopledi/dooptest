@@ -1,0 +1,16 @@
+direction: right
+steps {
+  personal: {
+    person: "PERSON"
+    next: "→ POSSE"
+    next.link: "posse"
+  }
+  posse: {
+    container: "POSSE"
+    prev: "← PERSONAL"; prev.link: "personal"
+    next: "→ HUB+FED";   next.link: "hubfed"
+  }
+  hubfed: {
+    prev: "← POSSE"; prev.link: "posse"
+  }
+}

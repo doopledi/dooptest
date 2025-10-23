@@ -1,0 +1,35 @@
+direction: right
+
+steps {
+  personal: {
+    label: "PERSONAL"
+    person: "PERSON"
+    text: "TEXT"
+    person -> text: "controls"
+
+    next: "→ POSSE"
+    next.link: "posse"
+  }
+
+  posse: {
+    label: "POSSE"
+    container: "POSSE"
+    rules: "RULES"
+    container -> rules: "uses"
+
+    prev: "← PERSONAL"
+    prev.link: "personal"
+    next: "→ HUB+FED"
+    next.link: "hubfed"
+  }
+
+  hubfed: {
+    label: "HUB + FED"
+    hub: "HUB"
+    fed: "FED"
+    hub -> fed: "publish"
+
+    prev: "← POSSE"
+    prev.link: "posse"
+  }
+}
