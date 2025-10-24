@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deleuze · Derrida · Lacan — Glossary</title>
+<style>
+:root {
+  --bg: #0b0c0f;
+  --fg: #e7e9ee;
+  --muted: #b3b7c3;
+  --card: #141722;
+  --accent: #7aa2f7;
+  --accent-2: #8bd5ca;
+  --border: #2a2f3a;
+}
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; background: var(--bg); color: var(--fg); font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+header { position: sticky; top: 0; z-index: 10; background: linear-gradient(180deg, rgba(11,12,15,0.95), rgba(11,12,15,0.85) 70%, transparent); backdrop-filter: saturate(140%) blur(8px); border-bottom: 1px solid var(--border); }
+.container { max-width: 1024px; margin: 0 auto; padding: 16px; }
+.title { display:flex; gap:12px; align-items:center; }
+.title h1 { margin:0; font-size: 20px; letter-spacing: 0.3px; }
+.controls { display:grid; grid-template-columns: 1fr 220px; gap: 12px; margin-top: 12px; }
+@media (max-width: 700px) {
+  .controls { grid-template-columns: 1fr; }
+}
+.search { display:flex; align-items:center; gap:8px; background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 10px 12px; }
+.search input { flex:1; background: transparent; color: var(--fg); border:0; outline: none; font-size: 14px; }
+kbd { background: #222733; border:1px solid var(--border); border-bottom-color:#1a1e28; padding: 2px 6px; border-radius: 6px; color: var(--muted); font-size: 12px; }
+.select { background: var(--card); border:1px solid var(--border); border-radius: 12px; padding: 8px 10px; color: var(--fg); font-size: 14px; }
+main { padding: 12px 16px 64px; }
+.grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px)  { .grid { grid-template-columns: 1fr; } }
+.card { background: var(--card); border:1px solid var(--border); border-radius: 16px; padding: 14px 14px 10px; position: relative; }
+.card h3 { margin: 0 0 6px; font-size: 16px; }
+.meta { display:flex; gap:6px; flex-wrap: wrap; margin-bottom: 6px; }
+.tag { background: rgba(122,162,247,0.14); color: var(--accent); border:1px solid rgba(122,162,247,0.35); padding:2px 8px; border-radius: 999px; font-size: 12px; }
+.summary { color: var(--muted); margin: 0 0 6px; }
+.body { margin: 0 0 8px; }
+.see { font-size: 13px; color: var(--muted); }
+.toplink { position: absolute; right: 10px; top: 10px; opacity: 0.6; }
+footer { color: var(--muted); text-align:center; padding: 24px 0 48px; }
+.controls-row { display:flex; align-items:center; justify-content: space-between; gap: 12px; }
+.btn { background: var(--card); border:1px solid var(--border); border-radius: 10px; padding: 8px 10px; color: var(--fg); cursor:pointer; }
+.btn:hover { border-color: #3a4252; }
+.hidden { display:none !important; }
+.count { color: var(--muted); font-size: 13px; }
+hr.sep { border:0; border-top:1px solid var(--border); margin: 10px 0; }
+.badge { font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<a id="top"></a>
+<header>
+  <div class="container">
+    <div class="title">
+      <h1>Deleuze · Derrida · Lacan — Glossary</h1>
+      <span class="badge">offline, single-file, searchable</span>
+    </div>
+    <div class="controls">
+      <div class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="q" placeholder="Search terms, summaries, or tags (press / to focus)" autocomplete="off">
+        <kbd>/</kbd>
+      </div>
+      <select id="tagSelect" class="select">
+        <option value="">Filter by tag…</option>
+        <option>Deleuze</option>
+        <option>Derrida</option>
+        <option>Lacan</option>
+        <option>Guattari</option>
+        <option>Ontology</option>
+        <option>Language</option>
+        <option>Subjectivity</option>
+        <option>Media</option>
+        <option>Bridge</option>
+        <option>Topology</option>
+        <option>Process</option>
+        <option>Time</option>
+        <option>Desire</option>
+        <option>Law</option>
+        <option>Structure</option>
+        <option>Psyche</option>
+        <option>Dynamics</option>
+      </select>
+    </div>
+    <div class="controls-row">
+      <div class="count"><span id="count"></span></div>
+      <div>
+        <button class="btn" id="randomBtn" title="Open a random entry">Random</button>
+        <button class="btn" id="clearBtn" title="Clear search and filters">Clear</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="grid" id="grid">
+    
+        <article id="difference-in-itself" class="card" data-tags='Deleuze|Ontology'>
+          <h3>Difference-in-itself</h3>
+          <div class="meta"><span class="tag" data-tag="Deleuze">Deleuze</span><span class="tag" data-tag="Ontology">Ontology</span></div>
+          <p class="summary">Difference as primary and productive, not derived from identity.</p>
+          <p class="body">Deleuze reframes ontology so that difference is ontologically primary: identity is an effect of differential processes. Counter to classical A=A primacy. Links: see Repetition; Becoming; Derrida: différance (contrast).</p>
+          <div class="see">See also: <a href="#repetition" class="see-link" data-see="repetition">repetition</a> · <a href="#becoming" class="see-link" data-see="becoming">becoming</a> · <a href="#differance" class="see-link" data-see="differance">differance</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="repetition" class="card" data-tags='Deleuze|Time'>
+          <h3>Repetition</h3>
+          <div class="meta"><span class="tag" data-tag="Deleuze">Deleuze</span><span class="tag" data-tag="Time">Time</span></div>
+          <p class="summary">Repetition never returns the same; it is variation that produces singularities.</p>
+          <p class="body">Against representational sameness, repetition is a creative divergence—each pass-through selects and differentiates. Identity across time = pattern of differing repetitions.</p>
+          <div class="see">See also: <a href="#difference-in-itself" class="see-link" data-see="difference-in-itself">difference-in-itself</a> · <a href="#becoming" class="see-link" data-see="becoming">becoming</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="becoming" class="card" data-tags='Deleuze|Process'>
+          <h3>Becoming</h3>
+          <div class="meta"><span class="tag" data-tag="Deleuze">Deleuze</span><span class="tag" data-tag="Process">Process</span></div>
+          <p class="summary">No fixed being; continuous transformation (becoming-woman/animal-imperceptible).</p>
+          <p class="body">Becoming is transversal and non-teleological. Subjects, species, and forms are thresholds in a flow, not essences. Links: Multiplicity; Assemblage; Lacan: lack (contrast).</p>
+          <div class="see">See also: <a href="#multiplicity" class="see-link" data-see="multiplicity">multiplicity</a> · <a href="#assemblage" class="see-link" data-see="assemblage">assemblage</a> · <a href="#lack" class="see-link" data-see="lack">lack</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="multiplicity" class="card" data-tags='Deleuze|Ontology'>
+          <h3>Multiplicity</h3>
+          <div class="meta"><span class="tag" data-tag="Deleuze">Deleuze</span><span class="tag" data-tag="Ontology">Ontology</span></div>
+          <p class="summary">Open sets of relations rather than unified essences.</p>
+          <p class="body">A multiplicity is an n-dimensional manifold of variable relations. The self is a multiplicity, not a unitary subject. Links: Assemblage; Rhizome.</p>
+          <div class="see">See also: <a href="#assemblage" class="see-link" data-see="assemblage">assemblage</a> · <a href="#rhizome" class="see-link" data-see="rhizome">rhizome</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="assemblage" class="card" data-tags='Deleuze|Guattari|Subjectivity'>
+          <h3>Assemblage (Agencement)</h3>
+          <div class="meta"><span class="tag" data-tag="Deleuze">Deleuze</span><span class="tag" data-tag="Guattari">Guattari</span><span class="tag" data-tag="Subjectivity">Subjectivity</span></div>
+          <p class="summary">Provisional arrangement of heterogeneous elements that produces effects.</p>
+          <p class="body">An assemblage is a functional coupling of bodies, discourses, tools, affects. Subjectivity is assembled and can be reassembled (territorialized/deterritorialized). Links: Deterritorialization; Platforms (application).</p>
+          <div class="see">See also: <a href="#deterritorialization" class="see-link" data-see="deterritorialization">deterritorialization</a> · <a href="#platforms" class="see-link" data-see="platforms">platforms</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="rhizome" class="card" data-tags='Deleuze|Guattari|Topology'>
+          <h3>Rhizome</h3>
+          <div class="meta"><span class="tag" data-tag="Deleuze">Deleuze</span><span class="tag" data-tag="Guattari">Guattari</span><span class="tag" data-tag="Topology">Topology</span></div>
+          <p class="summary">Non-hierarchical, acentered network of connections.</p>
+          <p class="body">Opposed to arborescent (tree) models. Rhizomes spread via plateaus and lines of flight. Identity arises as a node-effect in a network of becomings.</p>
+          <div class="see">See also: <a href="#assemblage" class="see-link" data-see="assemblage">assemblage</a> · <a href="#becoming" class="see-link" data-see="becoming">becoming</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="immanence" class="card" data-tags='Deleuze|Ontology'>
+          <h3>Plane of Immanence</h3>
+          <div class="meta"><span class="tag" data-tag="Deleuze">Deleuze</span><span class="tag" data-tag="Ontology">Ontology</span></div>
+          <p class="summary">No transcendent grounding; concepts arise within life’s plane.</p>
+          <p class="body">Philosophy creates concepts on a plane of immanence; no outside essence that fixes identity. Contrast with Lacan’s structuring of subject by the Symbolic.</p>
+          <div class="see">See also: <a href="#archi-writing" class="see-link" data-see="archi-writing">archi-writing</a> · <a href="#symbolic-order" class="see-link" data-see="symbolic-order">symbolic-order</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="control" class="card" data-tags='Deleuze|Media'>
+          <h3>Societies of Control</h3>
+          <div class="meta"><span class="tag" data-tag="Deleuze">Deleuze</span><span class="tag" data-tag="Media">Media</span></div>
+          <p class="summary">From enclosures to continuous modulation (codes, access, metrics).</p>
+          <p class="body">Identity becomes a dividual: sliced, modulated, scored over time across databases and platforms. Links: Protocols; Modulation; Iterability (correspondence).</p>
+          <div class="see">See also: <a href="#protocols" class="see-link" data-see="protocols">protocols</a> · <a href="#modulation" class="see-link" data-see="modulation">modulation</a> · <a href="#iterability" class="see-link" data-see="iterability">iterability</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="heterogenesis" class="card" data-tags='Guattari|Deleuze|Subjectivity'>
+          <h3>Heterogenesis</h3>
+          <div class="meta"><span class="tag" data-tag="Guattari">Guattari</span><span class="tag" data-tag="Deleuze">Deleuze</span><span class="tag" data-tag="Subjectivity">Subjectivity</span></div>
+          <p class="summary">Production through difference—continuous resingularization of subjectivity.</p>
+          <p class="body">Named explicitly by Guattari; implicit in Deleuze. Subjectivity as collective, processual, opening to alterity. Links: Multiplicity; Assemblage; Lacan: objet petit a (tension).</p>
+          <div class="see">See also: <a href="#multiplicity" class="see-link" data-see="multiplicity">multiplicity</a> · <a href="#assemblage" class="see-link" data-see="assemblage">assemblage</a> · <a href="#objet-petit-a" class="see-link" data-see="objet-petit-a">objet-petit-a</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="deterritorialization" class="card" data-tags='Deleuze|Guattari|Dynamics'>
+          <h3>Deterritorialization</h3>
+          <div class="meta"><span class="tag" data-tag="Deleuze">Deleuze</span><span class="tag" data-tag="Guattari">Guattari</span><span class="tag" data-tag="Dynamics">Dynamics</span></div>
+          <p class="summary">Unbinding of structures that enables new assemblages (reterritorializations).</p>
+          <p class="body">Identity shifts when territories dissolve and recompose. Lines of flight open onto novel couplings; always paired with reterritorialization.</p>
+          <div class="see">See also: <a href="#assemblage" class="see-link" data-see="assemblage">assemblage</a> · <a href="#reterritorialization" class="see-link" data-see="reterritorialization">reterritorialization</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="differance" class="card" data-tags='Derrida|Language'>
+          <h3>différance</h3>
+          <div class="meta"><span class="tag" data-tag="Derrida">Derrida</span><span class="tag" data-tag="Language">Language</span></div>
+          <p class="summary">Meaning arises via difference and deferral; never fully present.</p>
+          <p class="body">The sign’s meaning is produced by differences from other signs and is deferred across chains of signification. The subject can’t coincide with itself as pure presence.</p>
+          <div class="see">See also: <a href="#trace" class="see-link" data-see="trace">trace</a> · <a href="#iterability" class="see-link" data-see="iterability">iterability</a> · <a href="#difference-in-itself" class="see-link" data-see="difference-in-itself">difference-in-itself</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="trace" class="card" data-tags='Derrida|Language'>
+          <h3>Trace</h3>
+          <div class="meta"><span class="tag" data-tag="Derrida">Derrida</span><span class="tag" data-tag="Language">Language</span></div>
+          <p class="summary">Remainder of other signs within each sign; no pure origin.</p>
+          <p class="body">Every identity bears the mark of what it is not. Traces undo the possibility of a closed, self-identical meaning or subject.</p>
+          <div class="see">See also: <a href="#supplement" class="see-link" data-see="supplement">supplement</a> · <a href="#archi-writing" class="see-link" data-see="archi-writing">archi-writing</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="supplement" class="card" data-tags='Derrida|Logic'>
+          <h3>Supplement</h3>
+          <div class="meta"><span class="tag" data-tag="Derrida">Derrida</span><span class="tag" data-tag="Logic">Logic</span></div>
+          <p class="summary">What adds also founds and destabilizes the thing.</p>
+          <p class="body">The supplement shows that the ‘outside’ is constitutive, not secondary: identity relies on supplements that alter it.</p>
+          <div class="see">See also: <a href="#trace" class="see-link" data-see="trace">trace</a> · <a href="#deconstruction" class="see-link" data-see="deconstruction">deconstruction</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="iterability" class="card" data-tags='Derrida|Language|Media'>
+          <h3>Iterability</h3>
+          <div class="meta"><span class="tag" data-tag="Derrida">Derrida</span><span class="tag" data-tag="Language">Language</span><span class="tag" data-tag="Media">Media</span></div>
+          <p class="summary">Signs must be repeatable, but repetition always differs by context.</p>
+          <p class="body">Identity depends on iterable marks (names, signatures, profiles) that can never guarantee identical return. Bridge to protocols and access control.</p>
+          <div class="see">See also: <a href="#protocols" class="see-link" data-see="protocols">protocols</a> · <a href="#control" class="see-link" data-see="control">control</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="deconstruction" class="card" data-tags='Derrida|Method'>
+          <h3>Deconstruction</h3>
+          <div class="meta"><span class="tag" data-tag="Derrida">Derrida</span><span class="tag" data-tag="Method">Method</span></div>
+          <p class="summary">Reading that reveals internal tensions in concepts and texts.</p>
+          <p class="body">Not destruction; a careful tracing of conflicts that unsettle closure. Applied to identity, exposes constitutive contradictions.</p>
+          <div class="see">See also: <a href="#differance" class="see-link" data-see="differance">differance</a> · <a href="#supplement" class="see-link" data-see="supplement">supplement</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="archi-writing" class="card" data-tags='Derrida|Language'>
+          <h3>Archi-writing</h3>
+          <div class="meta"><span class="tag" data-tag="Derrida">Derrida</span><span class="tag" data-tag="Language">Language</span></div>
+          <p class="summary">General condition of signification beyond speech/writing opposition.</p>
+          <p class="body">Identity is ‘written’ by the systemic play of traces; undermines presence and inner essence. Links: Plane of immanence (analogy).</p>
+          <div class="see">See also: <a href="#trace" class="see-link" data-see="trace">trace</a> · <a href="#immanence" class="see-link" data-see="immanence">immanence</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="symbolic-order" class="card" data-tags='Lacan|Structure'>
+          <h3>Symbolic Order</h3>
+          <div class="meta"><span class="tag" data-tag="Lacan">Lacan</span><span class="tag" data-tag="Structure">Structure</span></div>
+          <p class="summary">The network of signifiers structuring subjectivity and law.</p>
+          <p class="body">Subjectivity is positioned by the Symbolic (S1, S2). Identity is an effect of signifier chains, not an inner essence. Bridge to Derrida’s textuality.</p>
+          <div class="see">See also: <a href="#signifier" class="see-link" data-see="signifier">signifier</a> · <a href="#name-of-the-father" class="see-link" data-see="name-of-the-father">name-of-the-father</a> · <a href="#differance" class="see-link" data-see="differance">differance</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="imaginary" class="card" data-tags='Lacan|Psyche'>
+          <h3>Imaginary</h3>
+          <div class="meta"><span class="tag" data-tag="Lacan">Lacan</span><span class="tag" data-tag="Psyche">Psyche</span></div>
+          <p class="summary">Domain of images, misrecognition, ego formation (mirror stage).</p>
+          <p class="body">Identity as image-based coherence; always a misrecognition. Contrasts with Deleuze’s anti-identitarian multiplicity.</p>
+          <div class="see">See also: <a href="#mirror-stage" class="see-link" data-see="mirror-stage">mirror-stage</a> · <a href="#multiplicity" class="see-link" data-see="multiplicity">multiplicity</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="real" class="card" data-tags='Lacan|Limit'>
+          <h3>The Real</h3>
+          <div class="meta"><span class="tag" data-tag="Lacan">Lacan</span><span class="tag" data-tag="Limit">Limit</span></div>
+          <p class="summary">That which resists symbolization; trauma and impossibility.</p>
+          <p class="body">Identity meets a limit in the Real—points where signification fails. Contrast with Deleuzian becoming (which affirms flux).</p>
+          <div class="see">See also: <a href="#lack" class="see-link" data-see="lack">lack</a> · <a href="#objet-petit-a" class="see-link" data-see="objet-petit-a">objet-petit-a</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="objet-petit-a" class="card" data-tags='Lacan|Desire'>
+          <h3>objet petit a</h3>
+          <div class="meta"><span class="tag" data-tag="Lacan">Lacan</span><span class="tag" data-tag="Desire">Desire</span></div>
+          <p class="summary">Cause of desire; leftover remainder that propels subjectivity.</p>
+          <p class="body">A heterogenetic lure that never coincides with the subject—links to Guattari’s heterogenesis as continuous resingularization.</p>
+          <div class="see">See also: <a href="#heterogenesis" class="see-link" data-see="heterogenesis">heterogenesis</a> · <a href="#lack" class="see-link" data-see="lack">lack</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="lack" class="card" data-tags='Lacan|Desire'>
+          <h3>Lack</h3>
+          <div class="meta"><span class="tag" data-tag="Lacan">Lacan</span><span class="tag" data-tag="Desire">Desire</span></div>
+          <p class="summary">Structural absence produced by language; fuels desire.</p>
+          <p class="body">For Lacan, subjectivity is structured by lack; for Deleuze/Guattari, desire is productive rather than lack-based (contrast).</p>
+          <div class="see">See also: <a href="#desiring-production" class="see-link" data-see="desiring-production">desiring-production</a> · <a href="#differance" class="see-link" data-see="differance">differance</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="signifier" class="card" data-tags='Lacan|Language'>
+          <h3>Signifier (S1/S2)</h3>
+          <div class="meta"><span class="tag" data-tag="Lacan">Lacan</span><span class="tag" data-tag="Language">Language</span></div>
+          <p class="summary">Master signifier (S1) anchors a chain of signifiers (S2).</p>
+          <p class="body">Identity positions depend on signifying chains; anticipates Derrida’s critique of presence and aligns with textual construction of the subject.</p>
+          <div class="see">See also: <a href="#symbolic-order" class="see-link" data-see="symbolic-order">symbolic-order</a> · <a href="#trace" class="see-link" data-see="trace">trace</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="name-of-the-father" class="card" data-tags='Lacan|Law'>
+          <h3>Name-of-the-Father</h3>
+          <div class="meta"><span class="tag" data-tag="Lacan">Lacan</span><span class="tag" data-tag="Law">Law</span></div>
+          <p class="summary">Signifier of law/prohibition structuring subjectivity.</p>
+          <p class="body">Introduces subject into the Symbolic, instituting difference and prohibition. Cross-link with Derrida’s law and deconstruction of origins.</p>
+          <div class="see">See also: <a href="#symbolic-order" class="see-link" data-see="symbolic-order">symbolic-order</a> · <a href="#deconstruction" class="see-link" data-see="deconstruction">deconstruction</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="protocols" class="card" data-tags='Media|Bridge'>
+          <h3>Protocols</h3>
+          <div class="meta"><span class="tag" data-tag="Media">Media</span><span class="tag" data-tag="Bridge">Bridge</span></div>
+          <p class="summary">Rules that enable/limit communication; authorization, addresses.</p>
+          <p class="body">From Derrida’s iterability (repeatable marks) to Deleuze’s control (access), protocols shape digital identities. Passwords, tokens, signatures.</p>
+          <div class="see">See also: <a href="#iterability" class="see-link" data-see="iterability">iterability</a> · <a href="#control" class="see-link" data-see="control">control</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="modulation" class="card" data-tags='Media|Bridge'>
+          <h3>Modulation</h3>
+          <div class="meta"><span class="tag" data-tag="Media">Media</span><span class="tag" data-tag="Bridge">Bridge</span></div>
+          <p class="summary">Continuous variation of parameters over time (scores, metrics).</p>
+          <p class="body">Deleuzian control society notion; identity becomes divisible and continuously updated (dividual).</p>
+          <div class="see">See also: <a href="#control" class="see-link" data-see="control">control</a> · <a href="#iterability" class="see-link" data-see="iterability">iterability</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+
+        <article id="platforms" class="card" data-tags='Media|Bridge'>
+          <h3>Platforms / Networks</h3>
+          <div class="meta"><span class="tag" data-tag="Media">Media</span><span class="tag" data-tag="Bridge">Bridge</span></div>
+          <p class="summary">Distributed graphs where identity is a node-effect.</p>
+          <p class="body">Rhizomatic connectivity combined with protocol governance; subjectivity as assembled across interfaces and data trails.</p>
+          <div class="see">See also: <a href="#rhizome" class="see-link" data-see="rhizome">rhizome</a> · <a href="#assemblage" class="see-link" data-see="assemblage">assemblage</a> · <a href="#protocols" class="see-link" data-see="protocols">protocols</a></div>
+          <a class="toplink" href="#top" title="Back to top">↑</a>
+        </article>
+        
+  </div>
+  <hr class="sep">
+  <footer>
+    Built for quick browsing and cross-ref. Short, neutral summaries for study; not a substitute for the texts.
+  </footer>
+</main>
+
+<script>
+(function(){
+  const q = document.getElementById('q');
+  const tagSelect = document.getElementById('tagSelect');
+  const grid = document.getElementById('grid');
+  const count = document.getElementById('count');
+  const clearBtn = document.getElementById('clearBtn');
+  const randomBtn = document.getElementById('randomBtn');
+
+  function normalize(s) { return (s || '').toLowerCase(); }
+
+  function filter() {
+    const term = normalize(q.value);
+    const tag = normalize(tagSelect.value);
+    let visible = 0;
+    [...grid.children].forEach(card => {
+      const body = normalize(card.innerText);
+      const tags = normalize(card.getAttribute('data-tags') || '');
+      const matchText = !term || body.includes(term);
+      const matchTag = !tag || tags.split('|').includes(tag);
+      const show = matchText && matchTag;
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    count.textContent = visible + " / " + grid.children.length + " terms";
+    location.hash && document.querySelector(location.hash)?.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+
+  function clearAll() {
+    q.value = '';
+    tagSelect.value = '';
+    filter();
+  }
+
+  function random() {
+    const cards = [...grid.children].filter(c => !c.classList.contains('hidden'));
+    if (!cards.length) return;
+    const pick = cards[Math.floor(Math.random()*cards.length)];
+    location.hash = "#" + pick.id;
+    pick.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement !== q) {
+      e.preventDefault();
+      q.focus();
+    }
+  });
+
+  q.addEventListener('input', filter);
+  tagSelect.addEventListener('change', filter);
+  clearBtn.addEventListener('click', clearAll);
+  randomBtn.addEventListener('click', random);
+
+  // Clicks on See also links should re-filter to the target
+  grid.addEventListener('click', (e) => {
+    const a = e.target.closest('a.see-link');
+    if (a) {
+      e.preventDefault();
+      const id = a.getAttribute('data-see');
+      location.hash = "#" + id;
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+
+  filter();
+})();
+</script>
+</body>
+</html>

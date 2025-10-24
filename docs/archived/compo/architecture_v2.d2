@@ -1,0 +1,138 @@
+direction: down
+theme: 200
+
+# Actors
+actors: {
+  label: "ACTORS"
+  person: "PERSON"
+  hubowner: "HUBOWNER"
+}
+
+# Personal Data Layer
+personal: {
+  label: "PERSONAL"
+  person: "PERSON (role)"
+  user: "USER (identity, keys)"
+  text: "TEXT (free-form)"
+  bundles: "BUNDLES (curated)"
+  items: "ITEMS (metadata/hooks)"
+}
+
+# POSSE - Control Center
+posse: {
+  label: "POSSE"
+  container: "POSSE (container)"
+  rules: "RULES (audience, endpoints)"
+  ingest: "INGEST"
+  sla_posse: "SLA (POSSE): ownership, portability, local policy"
+}
+
+# Hosting Layer
+hosting: {
+  label: "HOSTING"
+  self_hosted: "SELF-HOSTED"
+  hub_hosted: "HUB-HOSTED"
+  compute: "COMPUTE"
+  storage: "STORAGE"
+  uptime: "UPTIME"
+}
+
+# Publishing Layer
+publishing: {
+  label: "PUBLISHING"
+  self_publish: "SELF-PUBLISH"
+  hub_publish: "HUB-PUBLISH"
+  syndicate: "SYNDICATE"
+  relay: "RELAY"
+}
+
+# Regime Layer
+regime: {
+  label: "REGIME"
+  activitypub: "ACTIVITYPUB"
+  other_protocols: "OTHER PROTOCOLS"
+  standards: "STANDARDS"
+}
+
+# Gate Layer
+gate: {
+  label: "GATE"
+  access_control: "ACCESS CONTROL"
+  content_filter: "CONTENT FILTER"
+  audience_rules: "AUDIENCE RULES"
+  endpoint_rules: "ENDPOINT RULES"
+}
+
+# Federation Layer
+federation: {
+  label: "FEDERATION"
+  fediverse: "FEDIVERSE"
+  other_endpoints: "OTHER ENDPOINTS"
+  discover: "DISCOVERY / AGGREGATORS"
+}
+
+# Main Relationships
+actors.person -> personal.person: "is"
+actors.hubowner -> hosting.hub_hosted: "controls"
+
+personal.person -> personal.user: "controls"
+personal.person -> personal.text: "controls"
+personal.person -> personal.bundles: "manages"
+personal.bundles -> personal.text: "contains some"
+personal.bundles -> personal.items: "create"
+
+personal.person -> posse.ingest: "PUBLISH BUNDLES"
+personal.items -> posse.ingest: "from PERSONAL"
+posse.ingest -> posse.container: "into POSSE"
+posse.container -> posse.rules: "uses"
+
+# Hosting Options
+posse.container -> hosting.self_hosted: "can self-host"
+posse.container -> hosting.hub_hosted: "can use HUB"
+
+hosting.self_hosted -> hosting.compute: "provides"
+hosting.self_hosted -> hosting.storage: "provides"
+hosting.self_hosted -> hosting.uptime: "manages"
+
+hosting.hub_hosted -> hosting.compute: "HUB provides"
+hosting.hub_hosted -> hosting.storage: "HUB provides"
+hosting.hub_hosted -> hosting.uptime: "HUB manages"
+
+# Publishing Options
+posse.container -> publishing.self_publish: "can self-publish"
+posse.container -> publishing.hub_publish: "can use HUB"
+
+publishing.self_publish -> publishing.syndicate: "direct"
+publishing.self_publish -> publishing.relay: "direct"
+
+publishing.hub_publish -> publishing.syndicate: "via HUB"
+publishing.hub_publish -> publishing.relay: "via HUB"
+
+# Regime Selection
+publishing.syndicate -> regime.activitypub: "uses"
+publishing.syndicate -> regime.other_protocols: "uses"
+publishing.relay -> regime.activitypub: "uses"
+publishing.relay -> regime.other_protocols: "uses"
+
+# Gate Control
+regime.activitypub -> gate.access_control: "enforces"
+regime.activitypub -> gate.content_filter: "enforces"
+regime.other_protocols -> gate.access_control: "enforces"
+regime.other_protocols -> gate.content_filter: "enforces"
+
+gate.access_control -> gate.audience_rules: "implements"
+gate.content_filter -> gate.endpoint_rules: "implements"
+
+# Federation Output
+gate.audience_rules -> federation.fediverse: "publishes to"
+gate.audience_rules -> federation.other_endpoints: "publishes to"
+gate.endpoint_rules -> federation.fediverse: "publishes to"
+gate.endpoint_rules -> federation.other_endpoints: "publishes to"
+
+federation.fediverse -> federation.discover: "exposes to"
+federation.other_endpoints -> federation.discover: "exposes to"
+
+# Feedback Loop
+federation.fediverse -> posse.container: "reports back"
+federation.other_endpoints -> posse.container: "reports back"
+federation.discover -> posse.container: "reports back"

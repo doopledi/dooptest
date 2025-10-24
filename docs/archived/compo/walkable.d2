@@ -1,0 +1,68 @@
+direction: right
+
+actors: {
+  label: "ACTORS"
+  person_actor: "PERSON (actor)"
+  hubowner_actor: "HUBOWNER (actor/org)"
+}
+
+personal: {
+  label: "PERSONAL"
+  person: "PERSON (role)"
+  user: "USER (identity, keys)"
+  text: "TEXT (free-form)"
+  bundles: "BUNDLES (subset of texts)"
+  items: "ITEMS (metadata/hooks)"
+}
+
+posse: {
+  label: "POSSE"
+  container: "POSSE (container)"
+  rules: "RULES (audience,endpoints)"
+  ingest: "INGEST"
+  sla_posse: "SLA (POSSE): ownership, portability, local policy"
+}
+
+communal: {
+  label: "HUB"
+  host: "Hosting (compute, storage, uptime)"
+  services: "Services (moderation, discovery, relay)"
+  sla_host: "SLA (Hosting): uptime, integrity, delivery"
+  sla_services: "SLA (Services): ethics, rate limits, compliance"
+}
+
+federation: {
+  label: "FEDERATION"
+  fediverse: "Fediverse"
+  other: "Other endpoints"
+  discover: "Discovery / Aggregators"
+}
+
+/* ---- EDGES (top-level only) ---- */
+
+actors.person_actor -> actors.hubowner_actor: "may be same"
+actors.person_actor -> personal.person: "is"
+
+personal.person -> personal.user: "controls"
+personal.person -> personal.text: "controls"
+personal.person -> personal.bundles: "manages"
+
+personal.bundles -> personal.text: "contains some"
+personal.bundles -> personal.items: "create"
+
+personal.items -> posse.ingest: "from PERSONAL"
+posse.ingest -> posse.container: "into POSSE"
+posse.container -> posse.rules: "uses"
+
+posse.container -> communal.host: "host optional"
+
+communal.services -> federation.fediverse: "publish"
+communal.services -> federation.other: "syndicate"
+communal.services -> federation.discover: "expose"
+
+posse.container -> federation.fediverse: "direct"
+posse.container -> federation.other: "direct"
+
+communal.services -> posse.container: "compliance"
+
+communal.host -> communal.services: "same infra possible"

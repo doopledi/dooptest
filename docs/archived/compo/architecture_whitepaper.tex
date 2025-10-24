@@ -1,0 +1,300 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\geometry{a4paper, margin=1in}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+
+\title{Decentralized Publishing Architecture: POSSE to Federation}
+\author{Architecture Documentation}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Overview}
+
+This document describes a comprehensive architecture for decentralized content publishing that gives individuals (PERSON) complete control over their data while providing flexible hosting and publishing options. The system is built around the concept of POSSE (Publish on your Own Site, Syndicate Elsewhere) as a control center, with clear separation between data ownership, hosting, and publishing responsibilities.
+
+\subsection{Key Principles}
+
+\begin{itemize}
+    \item \textbf{Data Ownership}: PERSON maintains ultimate control over their content through POSSE
+    \item \textbf{Flexible Hosting}: Content can be self-hosted or hosted on external HUBs
+    \item \textbf{Protocol Agnostic}: Support for multiple publishing protocols (ActivityPub, etc.)
+    \item \textbf{Gate Control}: Endpoints can enforce their own access and content rules
+    \item \textbf{Feedback Loop}: Publishers receive reports on content acceptance and distribution
+\end{itemize}
+
+\section{Actors and Roles}
+
+\subsection{PERSON}
+The individual user who creates and controls content. PERSON has ultimate authority over:
+\begin{itemize}
+    \item What content gets published
+    \item Which audiences receive content
+    \item Which protocols and endpoints to use
+    \item Content modification and deletion
+\end{itemize}
+
+\subsection{HUBOWNER}
+The owner of hosting or publishing infrastructure. HUBOWNER can:
+\begin{itemize}
+    \item Provide hosting services for POSSE containers
+    \item Provide publishing/syndication services
+    \item Set HUB-level rules and policies
+    \item Manage infrastructure (compute, storage, uptime)
+\end{itemize}
+
+\section{Personal Data Layer}
+
+The PERSONAL layer represents the user's content creation and organization system.
+
+\subsection{Components}
+
+\begin{itemize}
+    \item \textbf{PERSON (role)}: The user's role within the personal data context
+    \item \textbf{USER (identity, keys)}: Digital identity and cryptographic keys
+    \item \textbf{TEXT (free-form)}: Unstructured text content created by the user
+    \item \textbf{BUNDLES (curated)}: Organized collections of content
+    \item \textbf{ITEMS (metadata/hooks)}: Structured items with metadata and integration hooks
+\end{itemize}
+
+\subsection{Relationships}
+
+\begin{itemize}
+    \item PERSON controls USER identity and keys
+    \item PERSON controls TEXT content creation
+    \item PERSON manages BUNDLES organization
+    \item BUNDLES contain some TEXT content
+    \item BUNDLES create structured ITEMS
+\end{itemize}
+
+\section{POSSE: The Control Center}
+
+POSSE (Publish on your Own Site, Syndicate Elsewhere) is the central control system where PERSON maintains all "leashes" - the rules and decisions about content publishing.
+
+\subsection{Components}
+
+\begin{itemize}
+    \item \textbf{POSSE (container)}: The data container holding all content and rules
+    \item \textbf{RULES (audience, endpoints)}: PERSON's publishing rules specifying audiences and target endpoints
+    \item \textbf{INGEST}: Process of bringing content into POSSE
+    \item \textbf{SLA (POSSE)}: Service Level Agreement covering ownership, portability, and local policy
+\end{itemize}
+
+\subsection{Key Functions}
+
+\begin{itemize}
+    \item \textbf{Content Control}: PERSON sets rules for what content goes where
+    \item \textbf{Audience Management}: Defines who can access what content
+    \item \textbf{Endpoint Selection}: Chooses which protocols and endpoints to use
+    \item \textbf{Policy Enforcement}: Implements PERSON's content and access policies
+\end{itemize}
+
+\section{Hosting Layer}
+
+The hosting layer provides infrastructure for running POSSE containers and related services.
+
+\subsection{Self-Hosted Option}
+
+When PERSON chooses to self-host:
+\begin{itemize}
+    \item PERSON provides their own compute resources
+    \item PERSON manages their own storage
+    \item PERSON is responsible for uptime and maintenance
+    \item Complete control over infrastructure and data
+\end{itemize}
+
+\subsection{HUB-Hosted Option}
+
+When PERSON uses a HUB for hosting:
+\begin{itemize}
+    \item HUBOWNER provides compute resources
+    \item HUBOWNER manages storage infrastructure
+    \item HUBOWNER ensures uptime and maintenance
+    \item PERSON retains control over content and rules
+\end{itemize}
+
+\section{Publishing Layer}
+
+The publishing layer handles the distribution of content from POSSE to various endpoints.
+
+\subsection{Self-Publishing}
+
+When PERSON chooses to self-publish:
+\begin{itemize}
+    \item Direct syndication to target endpoints
+    \item Direct relay to other services
+    \item PERSON manages all publishing infrastructure
+    \item Complete control over publishing process
+\end{itemize}
+
+\subsection{HUB Publishing}
+
+When PERSON uses a HUB for publishing:
+\begin{itemize}
+    \item HUB handles syndication to target endpoints
+    \item HUB manages relay to other services
+    \item HUBOWNER provides publishing infrastructure
+    \item PERSON retains control over content and rules
+\end{itemize}
+
+\section{Regime Layer}
+
+The regime layer defines the protocols and standards used for content distribution.
+
+\subsection{ActivityPub}
+
+ActivityPub is a decentralized social networking protocol that enables:
+\begin{itemize}
+    \item Interoperable social networking
+    \item Decentralized content distribution
+    \item Standardized activity streams
+    \item Federation between different platforms
+\end{itemize}
+
+\subsection{Other Protocols}
+
+Support for additional protocols:
+\begin{itemize}
+    \item RSS/Atom feeds
+    \item Custom APIs
+    \item Blockchain-based protocols
+    \item Future protocol extensions
+\end{itemize}
+
+\section{Gate Layer}
+
+The gate layer provides access control and content filtering at the endpoint level.
+
+\subsection{Access Control}
+
+\begin{itemize}
+    \item \textbf{Audience Rules}: Defines who can access content
+    \item \textbf{Authentication}: Verifies user identity
+    \item \textbf{Authorization}: Determines access permissions
+    \item \textbf{Rate Limiting}: Controls access frequency
+\end{itemize}
+
+\subsection{Content Filtering}
+
+\begin{itemize}
+    \item \textbf{Content Moderation}: Filters inappropriate content
+    \item \textbf{Spam Prevention}: Blocks unwanted content
+    \item \textbf{Quality Control}: Ensures content meets standards
+    \item \textbf{Legal Compliance}: Enforces legal requirements
+\end{itemize}
+
+\section{Federation Layer}
+
+The federation layer represents the distributed network of endpoints and services.
+
+\subsection{Fediverse}
+
+The decentralized social network including:
+\begin{itemize}
+    \item Mastodon instances
+    \item Pleroma servers
+    \item Misskey instances
+    \item Other ActivityPub-compatible services
+\end{itemize}
+
+\subsection{Other Endpoints}
+
+Additional publishing targets:
+\begin{itemize}
+    \item Social media platforms
+    \item Blog networks
+    \item News aggregators
+    \item Custom applications
+\end{itemize}
+
+\subsection{Discovery and Aggregation}
+
+\begin{itemize}
+    \item \textbf{Content Discovery}: Finding relevant content
+    \item \textbf{Aggregation Services}: Collecting content from multiple sources
+    \item \textbf{Search Engines}: Indexing and searching content
+    \item \textbf{Recommendation Systems}: Suggesting relevant content
+\end{itemize}
+
+\section{Feedback Loop}
+
+The system includes a feedback mechanism that reports back to POSSE about content distribution success.
+
+\subsection{Reporting}
+
+\begin{itemize}
+    \item \textbf{Acceptance Reports}: Which endpoints accepted content
+    \item \textbf{Distribution Status}: Where content was successfully published
+    \item \textbf{Error Reports}: What failed and why
+    \item \textbf{Performance Metrics}: How well content performed
+\end{itemize}
+
+\subsection{Learning}
+
+\begin{itemize}
+    \item \textbf{Rule Optimization}: Improving publishing rules based on success rates
+    \item \textbf{Endpoint Selection}: Choosing better endpoints for future content
+    \item \textbf{Content Strategy}: Adjusting content based on distribution success
+    \item \textbf{Policy Updates}: Refining access and content policies
+\end{itemize}
+
+\section{Implementation Considerations}
+
+\subsection{Security}
+
+\begin{itemize}
+    \item \textbf{End-to-End Encryption}: Protecting content in transit
+    \item \textbf{Access Control}: Implementing proper authentication and authorization
+    \item \textbf{Data Integrity}: Ensuring content hasn't been tampered with
+    \item \textbf{Privacy Protection}: Safeguarding user data and preferences
+\end{itemize}
+
+\subsection{Scalability}
+
+\begin{itemize}
+    \item \textbf{Load Balancing}: Distributing traffic across multiple instances
+    \item \textbf{Caching}: Improving performance with content caching
+    \item \textbf{CDN Integration}: Using content delivery networks for global distribution
+    \item \textbf{Database Optimization}: Efficient storage and retrieval of content
+\end{itemize}
+
+\subsection{Interoperability}
+
+\begin{itemize}
+    \item \textbf{Protocol Support}: Implementing multiple publishing protocols
+    \item \textbf{API Standards}: Following established API conventions
+    \item \textbf{Data Formats}: Using standard data exchange formats
+    \item \textbf{Version Management}: Handling protocol and API versioning
+\end{itemize}
+
+\section{Conclusion}
+
+This architecture provides a comprehensive framework for decentralized content publishing that balances individual control with flexible hosting and publishing options. By separating concerns between data ownership (POSSE), hosting (HUB), and publishing (REGIME/GATE), the system enables both technical flexibility and user autonomy.
+
+The key innovation is the POSSE as a control center where individuals maintain ultimate authority over their content while leveraging external infrastructure as needed. This approach ensures that users never lose control of their data while benefiting from shared infrastructure and services.
+
+\section{Architecture Diagram}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{out/architecture_v2.pdf}
+    \caption{Complete Architecture Flow: From Personal Data through POSSE Control to Federation}
+    \label{fig:architecture}
+\end{figure}
+
+The diagram above shows the complete flow from personal data creation through POSSE control to various hosting, publishing, and federation options. Each layer represents a distinct concern, with clear interfaces between them.
+
+\end{document}

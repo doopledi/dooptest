@@ -1,0 +1,47 @@
+direction: right
+
+steps {
+  personal: {
+    label: "PERSONAL"
+    person: "PERSON"
+    text: "TEXT"
+    bundles: "BUNDLES"
+    items: "ITEMS"
+    person -> text: "controls"
+    person -> bundles: "manages"
+    bundles -> text: "contains some"
+    bundles -> items: "create"
+    next: "→ POSSE"
+    next.link: "posse"
+  }
+
+  posse: {
+    label: "POSSE"
+    container: "POSSE (container)"
+    rules: "RULES (audience,endpoints)"
+    items -> container: "ingest"
+    container -> rules: "uses"
+    prev: "← PERSONAL"
+    prev.link: "personal"
+    next: "→ HUB+FED"
+    next.link: "hubfed"
+  }
+
+  hubfed: {
+    label: "HUB + FED"
+    host: "Hosting"
+    services: "Services"
+    fediverse: "Fediverse"
+    other: "Other endpoints"
+    discover: "Discovery"
+    container -> host: "host opt."
+    services -> fediverse: "publish"
+    services -> other: "syndicate"
+    services -> discover: "expose"
+    container -> fediverse: "direct"
+    container -> other: "direct"
+    services -> container: "compliance"
+    prev: "← POSSE"
+    prev.link: "posse"
+  }
+}

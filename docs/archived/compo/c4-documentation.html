@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSSE Architecture - C4 Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .diagram-section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .diagram-section h2 {
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        .diagram-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .description {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-left: 4px solid #667eea;
+            margin: 1rem 0;
+        }
+        .nav {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .nav a:hover {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>POSSE Architecture</h1>
+        <p>Comprehensive C4 Model Documentation</p>
+        <p><em>Publish on your Own Site, Syndicate Elsewhere</em></p>
+    </div>
+
+    <nav class="nav">
+        <ul>
+            <li><a href="#context">System Context</a></li>
+            <li><a href="#container">Container View</a></li>
+            <li><a href="#component">Component View</a></li>
+            <li><a href="#overview">Architecture Overview</a></li>
+        </ul>
+    </nav>
+
+    <div class="diagram-section" id="context">
+        <h2>System Context Diagram</h2>
+        <div class="description">
+            <p><strong>Purpose:</strong> Shows the POSSE system in the context of its environment, including users, external systems, and dependencies.</p>
+            <p><strong>Key Elements:</strong></p>
+            <ul>
+                <li><strong>PERSON:</strong> Individual user who creates and manages content</li>
+                <li><strong>HUBOWNER:</strong> Organization managing hosting and publishing services</li>
+                <li><strong>POSSE System:</strong> Core personal data container with publishing rules</li>
+                <li><strong>Federation:</strong> External networks and protocols for content distribution</li>
+            </ul>
+        </div>
+        <div class="diagram-container">
+            <img src="c4-context.png" alt="System Context Diagram">
+        </div>
+    </div>
+
+    <div class="diagram-section" id="container">
+        <h2>Container Diagram</h2>
+        <div class="description">
+            <p><strong>Purpose:</strong> Breaks down the POSSE system into its major containers and shows how they interact.</p>
+            <p><strong>Key Containers:</strong></p>
+            <ul>
+                <li><strong>PERSONAL Layer:</strong> User interface and content management</li>
+                <li><strong>POSSE System:</strong> Core publishing rules and content processing</li>
+                <li><strong>HUB Services:</strong> Hosting, publishing, and moderation services</li>
+                <li><strong>FEDERATION Layer:</strong> Protocol gateways and discovery services</li>
+            </ul>
+        </div>
+        <div class="diagram-container">
+            <img src="c4-container.png" alt="Container Diagram">
+        </div>
+    </div>
+
+    <div class="diagram-section" id="component">
+        <h2>Component Diagram</h2>
+        <div class="description">
+            <p><strong>Purpose:</strong> Detailed view of the POSSE system's internal components and their relationships.</p>
+            <p><strong>Key Components:</strong></p>
+            <ul>
+                <li><strong>API Gateway:</strong> Request routing and authentication</li>
+                <li><strong>Rule Engine:</strong> Publishing rules and content filtering</li>
+                <li><strong>Content Processor:</strong> Content transformation and validation</li>
+                <li><strong>Publisher:</strong> Content syndication to external platforms</li>
+                <li><strong>Feedback Collector:</strong> Status reporting and analytics</li>
+            </ul>
+        </div>
+        <div class="diagram-container">
+            <img src="c4-component.png" alt="Component Diagram">
+        </div>
+    </div>
+
+    <div class="diagram-section" id="overview">
+        <h2>Architecture Overview</h2>
+        <div class="description">
+            <p><strong>System Principles:</strong></p>
+            <ul>
+                <li><strong>User Control:</strong> PERSON has ultimate control over their content and publishing rules</li>
+                <li><strong>Flexible Hosting:</strong> Content can be self-hosted or deployed to external HUBs</li>
+                <li><strong>Protocol Agnostic:</strong> Supports multiple federation protocols (ActivityPub, RSS, etc.)</li>
+                <li><strong>Feedback Loop:</strong> Real-time status reporting from published content</li>
+                <li><strong>Modular Design:</strong> Components can be deployed independently or together</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="diagram-section">
+        <h2>Technical Implementation Notes</h2>
+        <div class="description">
+            <p><strong>Technology Stack:</strong></p>
+            <ul>
+                <li><strong>Frontend:</strong> React/Next.js for user interfaces</li>
+                <li><strong>Backend:</strong> Node.js/Express for APIs, Python for ML/Analytics</li>
+                <li><strong>Databases:</strong> PostgreSQL for structured data, InfluxDB for metrics</li>
+                <li><strong>Infrastructure:</strong> Docker/Kubernetes for containerization</li>
+                <li><strong>Communication:</strong> Redis/RabbitMQ for message queuing</li>
+                <li><strong>Storage:</strong> S3/MinIO for file storage</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

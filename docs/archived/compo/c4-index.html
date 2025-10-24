@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POSSE Architecture Diagrams</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .diagram-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .diagram-card h3 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        .diagram-card img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        .diagram-card a {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 0.5rem;
+            transition: background 0.3s;
+        }
+        .diagram-card a:hover {
+            background: #5a6fd8;
+        }
+        .description {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-left: 4px solid #667eea;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>POSSE Architecture</h1>
+        <p>Comprehensive System Documentation</p>
+        <p><em>Publish on your Own Site, Syndicate Elsewhere</em></p>
+    </div>
+
+    <div class="description">
+        <p><strong>Available Diagrams:</strong> This page provides access to both C4 model diagrams (for system architecture) and D2 diagrams (for interactive exploration) of the POSSE decentralized publishing system.</p>
+    </div>
+
+    <div class="diagram-grid">
+        <div class="diagram-card">
+            <h3>C4 Context Diagram</h3>
+            <img src="c4-context.png" alt="C4 Context Diagram">
+            <p>System context showing users, external systems, and dependencies</p>
+            <a href="c4-documentation.html#context">View Details</a>
+        </div>
+
+        <div class="diagram-card">
+            <h3>C4 Container Diagram</h3>
+            <img src="c4-container.png" alt="C4 Container Diagram">
+            <p>Major containers and their interactions within the system</p>
+            <a href="c4-documentation.html#container">View Details</a>
+        </div>
+
+        <div class="diagram-card">
+            <h3>C4 Component Diagram</h3>
+            <img src="c4-component.png" alt="C4 Component Diagram">
+            <p>Detailed internal components of the POSSE system</p>
+            <a href="c4-documentation.html#component">View Details</a>
+        </div>
+
+        <div class="diagram-card">
+            <h3>D2 Interactive Diagram</h3>
+            <img src="out/overview.svg" alt="D2 Overview Diagram" style="max-height: 200px;">
+            <p>Interactive walkable diagram with clickable elements</p>
+            <a href="index.html">View Interactive</a>
+        </div>
+
+        <div class="diagram-card">
+            <h3>Full Documentation</h3>
+            <p>Complete C4 documentation with detailed explanations</p>
+            <a href="c4-documentation.html">View Full Docs</a>
+        </div>
+
+        <div class="diagram-card">
+            <h3>Architecture Whitepaper</h3>
+            <p>PDF document with comprehensive system description</p>
+            <a href="architecture_whitepaper.pdf">Download PDF</a>
+        </div>
+    </div>
+
+    <div class="description">
+        <p><strong>Diagram Types:</strong></p>
+        <ul>
+            <li><strong>C4 Model:</strong> Industry-standard system architecture diagrams (Context, Container, Component)</li>
+            <li><strong>D2 Diagrams:</strong> Interactive, clickable diagrams for exploration and navigation</li>
+            <li><strong>LaTeX/PDF:</strong> Professional documentation with embedded diagrams</li>
+        </ul>
+    </div>
+</body>
+</html>

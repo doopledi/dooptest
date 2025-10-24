@@ -1,0 +1,63 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title POSSE Architecture - Container Diagram
+
+Person(person, "PERSON", "Individual user")
+Person(hubowner, "HUBOWNER", "Organization managing services")
+
+System_Boundary(personal_boundary, "PERSONAL Layer") {
+    Container(person_web, "Web Interface", "React/Next.js", "User interface for content creation")
+    Container(person_api, "Personal API", "Node.js/Express", "Content management API")
+    Container(person_db, "Personal Database", "SQLite/PostgreSQL", "User content and metadata")
+}
+
+System_Boundary(posse_boundary, "POSSE System") {
+    Container(posse_api, "POSSE API", "Node.js/Express", "Core publishing rules engine")
+    Container(posse_db, "POSSE Database", "PostgreSQL", "Publishing rules and content")
+    Container(posse_engine, "Rule Engine", "JavaScript/Python", "Publishing logic and filters")
+    Container(posse_feedback, "Feedback System", "WebSocket/SSE", "Live status reporting")
+}
+
+System_Boundary(hub_boundary, "HUB Services") {
+    Container(hub_hosting, "Hosting Service", "Docker/Kubernetes", "Container hosting and orchestration")
+    Container(hub_publishing, "Publishing Service", "Node.js/Go", "Content syndication and relay")
+    Container(hub_moderation, "Moderation Service", "Python/ML", "Content filtering and compliance")
+    Container(hub_discovery, "Discovery Service", "Elasticsearch", "Content indexing and search")
+}
+
+System_Boundary(federation_boundary, "FEDERATION Layer") {
+    Container(activitypub_gateway, "ActivityPub Gateway", "Node.js", "ActivityPub protocol handler")
+    Container(other_gateway, "Other Protocol Gateway", "Go/Rust", "Multi-protocol support")
+    Container(discovery_aggregator, "Discovery Aggregator", "Python", "Content discovery and RSS")
+}
+
+System_Ext(fediverse, "Fediverse", "Decentralized social network")
+System_Ext(other_platforms, "Other Platforms", "Various publishing destinations")
+
+Rel(person, person_web, "uses", "HTTPS")
+Rel(person_web, person_api, "calls", "REST/GraphQL")
+Rel(person_api, person_db, "reads/writes", "SQL")
+
+Rel(person, posse_api, "sets rules", "HTTPS")
+Rel(posse_api, posse_db, "reads/writes", "SQL")
+Rel(posse_api, posse_engine, "executes", "Internal API")
+Rel(posse_engine, posse_feedback, "reports", "WebSocket")
+
+Rel(person_api, posse_api, "publishes content", "REST API")
+Rel(posse_engine, hub_hosting, "deploys to", "Docker API")
+Rel(posse_engine, hub_publishing, "syndicates", "Message Queue")
+
+Rel(hub_publishing, activitypub_gateway, "publishes via", "ActivityPub")
+Rel(hub_publishing, other_gateway, "publishes via", "HTTP/Webhook")
+Rel(hub_moderation, hub_publishing, "filters", "Internal API")
+Rel(hub_discovery, discovery_aggregator, "indexes", "REST API")
+
+Rel(activitypub_gateway, fediverse, "publishes to", "ActivityPub")
+Rel(other_gateway, other_platforms, "publishes to", "HTTP/Webhook")
+Rel(discovery_aggregator, fediverse, "discovers", "RSS/Atom")
+
+Rel(fediverse, posse_feedback, "status reports", "Webhook")
+Rel(other_platforms, posse_feedback, "status reports", "Webhook")
+
+@enduml

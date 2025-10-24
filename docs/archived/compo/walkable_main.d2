@@ -1,0 +1,180 @@
+# Main Overview - Clickable Elements
+direction: right
+
+actors: {
+  label: "ACTORS"
+  person_actor: "PERSON (actor)"
+  hubowner_actor: "HUBOWNER (actor/org)"
+}
+
+personal: {
+  label: "PERSONAL"
+  person: "PERSON (role)"
+  user: "USER (identity, keys)"
+  text: "TEXT (free-form)"
+  bundles: "BUNDLES (subset of texts)"
+  items: "ITEMS (metadata/hooks)"
+}
+
+posse: {
+  label: "POSSE"
+  container: "POSSE (container)"
+  rules: "RULES (audience,endpoints)"
+  ingest: "INGEST"
+  sla_posse: "SLA (POSSE)"
+}
+
+communal: {
+  label: "HUB"
+  host: "Hosting (compute, storage, uptime)"
+  services: "Services (moderation, discovery, relay)"
+  sla_host: "SLA (Hosting)"
+  sla_services: "SLA (Services)"
+}
+
+federation: {
+  label: "FEDERATION"
+  fediverse: "Fediverse"
+  other: "Other endpoints"
+  discover: "Discovery / Aggregators"
+}
+
+/* Main relationships only */
+actors.person_actor -> personal.person: "is"
+personal.items -> posse.ingest: "from PERSONAL"
+posse.container -> communal.host: "host optional"
+communal.services -> federation.fediverse: "publish"
+posse.container -> federation.fediverse: "direct"
+
+# Detail Views
+layers: {
+  "actors-detail": {
+    direction: right
+    title: "ACTORS Detail"
+    
+    person_actor: {
+      label: "PERSON (actor)"
+      tooltip: "Individual person who uses the system"
+    }
+    hubowner_actor: {
+      label: "HUBOWNER (actor/org)"
+      tooltip: "Organization or individual that owns and operates a hub"
+    }
+    
+    person_actor -> hubowner_actor: {
+      label: "may be same"
+      tooltip: "A person actor may also be a hub owner"
+    }
+    
+  }
+  
+  "personal-detail": {
+    direction: right
+    title: "PERSONAL Detail"
+    
+    person: {
+      label: "PERSON (role)"
+      tooltip: "User role within the personal data context"
+    }
+    user: {
+      label: "USER (identity, keys)"
+      tooltip: "User identity and cryptographic keys for authentication"
+    }
+    text: {
+      label: "TEXT (free-form)"
+      tooltip: "Unstructured text content created by the user"
+    }
+    bundles: {
+      label: "BUNDLES (subset of texts)"
+      tooltip: "Curated collections of text content"
+    }
+    items: {
+      label: "ITEMS (metadata/hooks)"
+      tooltip: "Structured items with metadata and integration hooks"
+    }
+    
+    person -> user: "controls"
+    person -> text: "controls"
+    person -> bundles: "manages"
+    bundles -> text: "contains some"
+    bundles -> items: "create"
+    
+  }
+  
+  "posse-detail": {
+    direction: right
+    title: "POSSE Detail"
+    
+    container: {
+      label: "POSSE (container)"
+      tooltip: "Container for published content with audience controls"
+    }
+    rules: {
+      label: "RULES (audience,endpoints)"
+      tooltip: "Rules defining audience and syndication endpoints"
+    }
+    ingest: {
+      label: "INGEST"
+      tooltip: "Process for ingesting content from personal layer"
+    }
+    sla_posse: {
+      label: "SLA (POSSE): ownership, portability, local policy"
+      tooltip: "Service Level Agreement for POSSE: data ownership, portability, and local policy enforcement"
+    }
+    
+    ingest -> container: "into POSSE"
+    container -> rules: "uses"
+    
+  }
+  
+  "communal-detail": {
+    direction: right
+    title: "HUB Detail"
+    
+    host: {
+      label: "Hosting (compute, storage, uptime)"
+      tooltip: "Infrastructure hosting: compute resources, storage, and uptime guarantees"
+    }
+    services: {
+      label: "Services (moderation, discovery, relay)"
+      tooltip: "Hub services: content moderation, discovery, and relay functionality"
+    }
+    sla_host: {
+      label: "SLA (Hosting): uptime, integrity, delivery"
+      tooltip: "Service Level Agreement for hosting: uptime guarantees, data integrity, and delivery"
+    }
+    sla_services: {
+      label: "SLA (Services): ethics, rate limits, compliance"
+      tooltip: "Service Level Agreement for services: ethical guidelines, rate limits, and compliance"
+    }
+    
+    host -> services: "same infra possible"
+    services -> container: "compliance"
+    
+  }
+  
+  "federation-detail": {
+    direction: right
+    title: "FEDERATION Detail"
+    
+    fediverse: {
+      label: "Fediverse"
+      tooltip: "Federated social web connections"
+    }
+    other: {
+      label: "Other endpoints"
+      tooltip: "Other external endpoints and services"
+    }
+    discover: {
+      label: "Discovery / Aggregators"
+      tooltip: "Content discovery and aggregation services"
+    }
+    
+    services -> fediverse: "publish"
+    services -> other: "syndicate"
+    services -> discover: "expose"
+    container -> fediverse: "direct"
+    container -> other: "direct"
+    
+  }
+}

@@ -1,0 +1,34 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title POSSE Architecture - System Context
+
+Person(person, "PERSON", "Individual user who creates and manages content")
+Person(hubowner, "HUBOWNER", "Organization managing hosting and publishing services")
+
+System_Boundary(posse_system, "POSSE System") {
+    System(posse, "POSSE", "Personal data container with publishing rules")
+    System(personal, "PERSONAL", "User's content creation and management layer")
+    System(hub, "HUB", "Hosting and publishing services")
+    System(federation, "FEDERATION", "Federated network connections")
+}
+
+System_Ext(activitypub, "ActivityPub", "Decentralized social networking protocol")
+System_Ext(other_protocols, "Other Protocols", "Various federation protocols")
+System_Ext(fediverse, "Fediverse", "Decentralized social network")
+System_Ext(discovery, "Discovery Services", "Content discovery and aggregation")
+
+Rel(person, personal, "creates content", "HTTPS")
+Rel(person, posse, "sets rules", "HTTPS")
+Rel(hubowner, hub, "manages", "HTTPS")
+
+Rel(personal, posse, "publishes content", "HTTPS")
+Rel(posse, hub, "deploys to", "Docker/API")
+Rel(hub, federation, "syndicates", "ActivityPub/HTTP")
+Rel(federation, activitypub, "uses", "ActivityPub")
+Rel(federation, other_protocols, "uses", "HTTP/Webhook")
+Rel(activitypub, fediverse, "publishes to", "ActivityPub")
+Rel(other_protocols, fediverse, "publishes to", "HTTP")
+Rel(fediverse, discovery, "exposes", "RSS/Atom")
+
+@enduml

@@ -1,0 +1,59 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title POSSE System - Component Diagram
+
+Container_Boundary(posse_system, "POSSE System") {
+    Component(api_gateway, "API Gateway", "Express.js", "Routes requests and authentication")
+    Component(rule_engine, "Rule Engine", "JavaScript", "Processes publishing rules and filters")
+    Component(content_processor, "Content Processor", "Node.js", "Transforms and validates content")
+    Component(publisher, "Publisher", "Node.js", "Handles content syndication")
+    Component(feedback_collector, "Feedback Collector", "WebSocket", "Collects status reports")
+    Component(analytics, "Analytics", "Python", "Tracks publishing metrics")
+    
+    ComponentDb(content_db, "Content Database", "PostgreSQL", "Stores content and metadata")
+    ComponentDb(rules_db, "Rules Database", "PostgreSQL", "Stores publishing rules")
+    ComponentDb(feedback_db, "Feedback Database", "PostgreSQL", "Stores status reports")
+    ComponentDb(analytics_db, "Analytics Database", "InfluxDB", "Time-series metrics")
+    
+    Component(message_queue, "Message Queue", "Redis/RabbitMQ", "Async communication")
+    Component(cache, "Cache", "Redis", "Caching layer")
+    Component(file_storage, "File Storage", "S3/MinIO", "Content file storage")
+}
+
+Container_Boundary(external_systems, "External Systems") {
+    Container(activitypub_service, "ActivityPub Service", "Node.js", "ActivityPub protocol")
+    Container(other_protocol_service, "Other Protocol Service", "Go", "Multi-protocol support")
+    Container(discovery_service, "Discovery Service", "Python", "Content discovery")
+}
+
+System_Ext(fediverse, "Fediverse", "External social network")
+System_Ext(other_platforms, "Other Platforms", "External publishing destinations")
+
+Rel(api_gateway, rule_engine, "validates rules", "Internal API")
+Rel(api_gateway, content_processor, "processes content", "Internal API")
+Rel(rule_engine, rules_db, "reads/writes", "SQL")
+Rel(content_processor, content_db, "stores", "SQL")
+Rel(content_processor, file_storage, "stores files", "S3 API")
+
+Rel(rule_engine, publisher, "publishes content", "Message Queue")
+Rel(publisher, activitypub_service, "publishes via", "ActivityPub")
+Rel(publisher, other_protocol_service, "publishes via", "HTTP")
+Rel(publisher, discovery_service, "registers", "REST API")
+
+Rel(activitypub_service, fediverse, "publishes to", "ActivityPub")
+Rel(other_protocol_service, other_platforms, "publishes to", "HTTP/Webhook")
+Rel(discovery_service, fediverse, "discovers", "RSS/Atom")
+
+Rel(fediverse, feedback_collector, "status reports", "Webhook")
+Rel(other_platforms, feedback_collector, "status reports", "Webhook")
+Rel(feedback_collector, feedback_db, "stores", "SQL")
+Rel(feedback_collector, analytics, "tracks", "Internal API")
+
+Rel(analytics, analytics_db, "stores metrics", "InfluxDB")
+Rel(analytics, cache, "caches results", "Redis")
+
+Rel(api_gateway, cache, "caches responses", "Redis")
+Rel(api_gateway, message_queue, "queues tasks", "Redis")
+
+@enduml
